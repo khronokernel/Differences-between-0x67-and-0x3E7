@@ -29,12 +29,13 @@ Active values:
 * CSR\_ALLOW\_UNRESTRICTED\_FS
 * CSR\_ALLOW\_UNTRUSTED\_KEXTS
 
-&#x200B;
 
 What you'll notice is that there's 3 new values added:
 
 * CSR\_ALLOW\_UNAPPROVED\_KEXTS
-* CSR\_ALLOW\_ANY\_RECOVERY\_OS
-* CSR\_ALLOW\_DEVICE\_CONFIGURATION
+* CSR\_ALLOW\_ANY\_RECOVERY\_OS: Allows for more control over volumes present in MacOS
+* CSR\_ALLOW\_DEVICE\_CONFIGURATION:
 
-The one that's super important to us is UNAPPROVED\_KEXTS as this is what's allowing us to get around MacOS 10.14.5's new [kernel extension notarization](https://developer.apple.com/documentation/macos_release_notes/macos_mojave_10_14_5_release_notes) which can make certain kexts not load correctly through Clover. You can even show what different CsrActiveConfig values enable/disable yourself with CorpNewt's [CsrDecode tool](https://github.com/corpnewt/CsrDecode) or check what other Csr flags there are inside of Apple's [public source code for Darwin](https://github.com/apple/darwin-xnu/blob/master/bsd/sys/csr.h)
+The one that's super important to us is UNAPPROVED\_KEXTS as this is what's allowing us to get around MacOS 10.14.5's new [kernel extension notarization](https://developer.apple.com/documentation/macos_release_notes/macos_mojave_10_14_5_release_notes) which can make certain kexts not load correctly through Clover. And with how Clover seems to have a poor implementation of kext injection, it's also recommended for users on HighSierra as well to avoid any potential issues that may pop up but Sierra and ElCapitan users should avoid 0x3E7 as these values are not present.
+
+You can even show what different CsrActiveConfig values enable/disable yourself with CorpNewt's [CsrDecode tool](https://github.com/corpnewt/CsrDecode) or check what other Csr flags there are inside of Apple's [public source code for Darwin](https://github.com/apple/darwin-xnu/blob/master/bsd/sys/csr.h)(they're just bit switches so you can configure SIP to how you'd like). Hopefully someone finds this info interesting, I just realized this isn't actually written anywhere(also thanks Corp for the explainer)
